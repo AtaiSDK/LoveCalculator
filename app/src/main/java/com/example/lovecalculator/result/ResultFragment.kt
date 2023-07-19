@@ -6,9 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.example.lovecalculator.HomeFragment
-import com.example.lovecalculator.MainActivity
-import com.example.lovecalculator.R
 import com.example.lovecalculator.databinding.FragmentResultBinding
 
 class ResultFragment : Fragment() {
