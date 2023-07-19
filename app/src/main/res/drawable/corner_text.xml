@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Фон EditText, когда он не в фокусе -->
+    <item android:state_focused="false">
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF" /> <!-- Белый цвет фона -->
+            <stroke
+                android:width="2dp"
+                android:color="#CCCCCC" /> <!-- Серый цвет обводки -->
+            <corners android:radius="16dp" /> <!-- Радиус округления -->
+        </shape>
+    </item>
+    <!-- Фон EditText, когда он в фокусе -->
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF" /> <!-- Белый цвет фона -->
+            <stroke
+                android:width="2dp"
+                android:color="#808080" /> <!-- Серый цвет обводки в фокусе -->
+            <corners android:radius="16dp" /> <!-- Радиус округления -->
+        </shape>
+    </item>
+</selector>
