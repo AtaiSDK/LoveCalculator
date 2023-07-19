@@ -33,6 +33,7 @@ class HomeFragment : Fragment() {
     }
     private fun initClickers() {
         with(binding){
+
             calculateBtn.setOnClickListener {
 
                 RetrofitService().api.getPercentage(
@@ -42,10 +43,11 @@ class HomeFragment : Fragment() {
                     override fun onResponse(call: Call<LoveModel>, response: Response<LoveModel>) {
                         val result = response.body()?.result.toString()
                         val percentage = response.body()?.percentage.toString()
+                        val me = firstName.text.toString()
+                        val you = secondName.text.toString()
                         if (result != null) {
-                            transitionToResult(result, percentage)
-                            firstName.text.clear()
-                            secondName.text.clear()
+                            transitionToResult(result, percentage, me, you)
+
                         }
                     }
 
@@ -57,16 +59,20 @@ class HomeFragment : Fragment() {
         }
 
     }
-    private fun transitionToResult(result: String, percentage: String) {
+    private fun transitionToResult(result: String, percentage: String, firstName: String, secondName: String) {
         val bundle = Bundle()
         bundle.putString(RESULT, result)
         bundle.putString(PERCENTAGE, percentage)
+        bundle.putString(FIRSTNAME, firstName)
+        bundle.putString(SECONDNAME, secondName)
         findNavController().navigate(R.id.resultFragment, bundle)
     }
 
     companion object{
         const val RESULT = "result"
         const val PERCENTAGE = "percentage"
+        const val FIRSTNAME = "firstName"
+        const val SECONDNAME = "secondName"
     }
 
 }
