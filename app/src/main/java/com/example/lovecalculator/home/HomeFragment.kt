@@ -5,10 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.example.lovecalculator.LoveModel
+import com.example.lovecalculator.LoveViewModel
+import com.example.lovecalculator.remote.LoveModel
 import com.example.lovecalculator.R
-import com.example.lovecalculator.RetrofitService
+import com.example.lovecalculator.remote.RetrofitService
 import com.example.lovecalculator.databinding.FragmentHomeBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -16,6 +20,7 @@ import retrofit2.Response
 
 class HomeFragment : Fragment() {
     lateinit var binding: FragmentHomeBinding
+    private val viewModel: LoveViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -35,29 +40,18 @@ class HomeFragment : Fragment() {
         with(binding){
 
             calculateBtn.setOnClickListener {
-
-                RetrofitService().api.getPercentage(
-                    firstName.text.toString(),
-                    secondName.text.toString()
-                ).enqueue(object : Callback<LoveModel> {
-                    override fun onResponse(call: Call<LoveModel>, response: Response<LoveModel>) {
-                        val result = response.body()?.result.toString()
-                        val percentage = response.body()?.percentage.toString()
-                        val me = firstName.text.toString()
-                        val you = secondName.text.toString()
+                viewModel.getLiveData(firstName.text.toString(), secondName.text.toString())
+                    .observe(requireActivity(), Observer {
+                        val result = it.result
+                        val percentage = it.percentage
+                        val firstName = it.firstname
+                        val secondName = it.secondname
                         if (result != null) {
-                            transitionToResult(result, percentage, me, you)
-
+                            transitionToResult(result, percentage, firstName, secondName)
                         }
-                    }
-
-                    override fun onFailure(call: Call<LoveModel>, t: Throwable) {
-                    }
-
-                })
+                    })
             }
         }
-
     }
     private fun transitionToResult(result: String, percentage: String, firstName: String, secondName: String) {
         val bundle = Bundle()
