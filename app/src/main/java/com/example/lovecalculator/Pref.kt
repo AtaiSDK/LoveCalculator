@@ -1,7 +1,9 @@
 package com.example.lovecalculator
 
 import android.content.Context
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 
 class Pref @Inject constructor(private val context: Context) {
 

@@ -11,8 +11,10 @@ import com.example.lovecalculator.Pref
 import com.example.lovecalculator.R
 import com.example.lovecalculator.databinding.FragmentOnBoardBinding
 import com.example.lovecalculator.home.HomeFragment
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class OnBoardFragment : Fragment() {
     private val adapter = BoardAdapter(this::onClick)
     private lateinit var binding : FragmentOnBoardBinding
