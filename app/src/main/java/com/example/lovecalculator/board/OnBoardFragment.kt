@@ -5,18 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.lovecalculator.Pref
 import com.example.lovecalculator.R
 import com.example.lovecalculator.databinding.FragmentOnBoardBinding
 import com.example.lovecalculator.home.HomeFragment
+import javax.inject.Inject
 
 class OnBoardFragment : Fragment() {
     private val adapter = BoardAdapter(this::onClick)
     private lateinit var binding : FragmentOnBoardBinding
-    private val pref : Pref by lazy {
-        Pref(requireContext())
-    }
+    @Inject
+    lateinit var pref: Pref
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

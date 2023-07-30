@@ -1,8 +1,9 @@
 package com.example.lovecalculator
 
 import android.content.Context
+import javax.inject.Inject
 
-class Pref(private val context: Context) {
+class Pref @Inject constructor(private val context: Context) {
 
     private val pref by lazy {
         context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
