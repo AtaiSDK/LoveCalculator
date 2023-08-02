@@ -20,13 +20,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding : ActivityMainBinding
     private lateinit var controller: NavController
     private val onBoardingViewModel: OnBoardingViewModel by viewModels()
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

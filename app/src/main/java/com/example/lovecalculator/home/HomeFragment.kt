@@ -1,5 +1,6 @@
 package com.example.lovecalculator.home
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,10 +11,8 @@ import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.example.lovecalculator.Helper
-import com.example.lovecalculator.LoveViewModel
+import com.example.lovecalculator.*
 import com.example.lovecalculator.remote.LoveModel
-import com.example.lovecalculator.R
 import com.example.lovecalculator.remote.RetrofitService
 import com.example.lovecalculator.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,13 +41,15 @@ class HomeFragment : Fragment() {
     }
     private fun initClickers() {
         with(binding){
-
-
+            historyBtn.setOnClickListener {
+                val intent = Intent(requireContext(), HistoryActivity::class.java)
+                startActivity(intent)
+            }
             calculateBtn.setOnClickListener {
                  helper.showToast(requireContext(), "hello")
                 viewModel.getLiveData(firstName.text.toString(), secondName.text.toString())
                     .observe(requireActivity(), Observer {
-                        
+                        App.appDataBase.loveDao().insert(it)
                         val result = it.result
                         val percentage = it.percentage
                         val firstName = it.firstname

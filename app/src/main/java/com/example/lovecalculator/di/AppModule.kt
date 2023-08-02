@@ -3,10 +3,14 @@ package com.example.lovecalculator.di
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
+import androidx.room.Room
+import com.example.lovecalculator.App
 import com.example.lovecalculator.Helper
 import com.example.lovecalculator.Pref
 import com.example.lovecalculator.board.OnBoardingViewModel
 import com.example.lovecalculator.remote.LoveApi
+import com.example.lovecalculator.room.AppDataBase
+import com.example.lovecalculator.room.LoveDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -45,4 +49,17 @@ class AppModule {
     fun provideOnBoardingViewModel(pref: Pref): OnBoardingViewModel {
         return OnBoardingViewModel(pref)
     }
+
+    @Provides
+    fun provideAppDataBase(@ApplicationContext context: Context) : AppDataBase{
+        return Room.databaseBuilder(context, AppDataBase::class.java, "love-file")
+            .allowMainThreadQueries()
+            .build()
+    }
+
+    @Provides
+    fun provideLoveDao(@ApplicationContext context: Context):LoveDao{
+        return provideAppDataBase(context).loveDao()
+    }
+
 }
